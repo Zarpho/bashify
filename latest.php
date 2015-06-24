@@ -2,9 +2,9 @@
 
 /* :: Bashify ::
  * 
- * FILENAME:    index.php
+ * FILENAME:    latest.php
  * AUTHOR(S):   Joey Miller ("Zarpho")
- * DESCRIPTION: The index page of the QDB.
+ * DESCRIPTION: Displays the 50 most recent quotes.
  */
 
 require("etc/index.php");
@@ -20,6 +20,14 @@ if (!$mysqli)
 
 mysqli_select_db($mysqli, $database);
 
-echo "Other stuff will go here soon.";
+$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id ASC LIMIT 50");
+$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
+
+foreach ($quotesarray as $quotearray)
+{
+	$quote = new Quote($quotearray);
+	
+	include("html/quote.php");
+}
 
 ?>
