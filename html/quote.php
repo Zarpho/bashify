@@ -13,6 +13,6 @@
 
 ?>
 
-<br />
-<p class="monospace">#<?=$quote->id?> - <?=$quote->date?> <span class="upvotes"><?=$quote->upvotes?></span> + / - <span class="downvotes"><?=$quote->downvotes?></span></p>
-<p class="monospace"><?=$quote->quote;?></p>
+						<br />
+						<p class="monospace">#<?=$quote->id?> - <?=$quote->date?> <span class="upvotes"><?=$quote->upvotes?></span> + / - <span class="downvotes"><?=$quote->downvotes?></span></p>
+						<p class="monospace"><?=$quote->quote;?></p>

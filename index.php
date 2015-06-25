@@ -4,7 +4,7 @@
  * 
  * FILENAME:    index.php
  * AUTHOR(S):   Joey Miller ("Zarpho")
- * DESCRIPTION: The index page of the QDB.
+ * DESCRIPTION: The index page, which displays the 50 most recent quotes.
  */
 
 require("etc/index.php");
@@ -20,6 +20,20 @@ if (!$mysqli)
 
 mysqli_select_db($mysqli, $database);
 
-echo "Other stuff will go here soon.";
+$pagetitle = "Home";
+
+$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id ASC LIMIT 50");
+$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
+
+include("html/header.php");
+
+foreach ($quotesarray as $quotearray)
+{
+	$quote = new Quote($quotearray);
+	
+	include("html/quote.php");
+}
+
+include("html/footer.php");
 
 ?>

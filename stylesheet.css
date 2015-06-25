@@ -1,0 +1,41 @@
+/* :: Bashify ::
+ * 
+ * FILENAME:    stylesheet.css
+ * AUTHOR(S):   Joey Miller ("Zarpho")
+ * DESCRIPTION: Stylesheet for the QDB.
+ */
+
+body, div, p, table, tbody, th, tr, td, ol, ul, li, img
+{
+	margin: 0px;
+	padding: 0px;
+	border-spacing: 0px;
+}
+
+#main
+{
+	width: 800px;
+	margin: auto;
+	font-family: Arial, sans-serif;
+	font-size: 10pt;
+}
+
+.centered
+{
+	text-align: center;
+}
+
+.monospace
+{
+	font-family: Consolas, monospace;
+}
+
+.right
+{
+	text-align: right;
+}
+
+.small
+{
+	font-size: 8pt;
+}

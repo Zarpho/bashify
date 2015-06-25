@@ -8,6 +8,7 @@
  */
 
 /* Required library files */
+require("database.php");
 require("quote.php");
 
 /* Include your own library files here */
