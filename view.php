@@ -37,7 +37,7 @@ $pagetitle = "View " . $id;
 
 include("html/header.php");
 
-if ($id = "all")
+if ($id == "all")
 {
 	foreach ($quotesarray as $quotearray)
 	{
@@ -56,9 +56,6 @@ else if ($quotesarray[approved] == 0)
 }
 else
 {
-	echo $id;
-	print_r($quotesarray);
-	
 	$quote = new Quote($quotesarray);
 	
 	include("html/quote.php");
