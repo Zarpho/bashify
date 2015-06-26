@@ -48,10 +48,12 @@ if ($id == "all")
 }
 else if ($quotesarray[id] == NULL)
 {
+	echo "\n";
 	echo "						<p>" . $id . " does not exist.</p>";
 }
 else if ($quotesarray[approved] == 0)
 {
+	echo "\n";
 	echo "						<p>" . $id . " has not yet been approved.</p>";
 }
 else
