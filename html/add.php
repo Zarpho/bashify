@@ -15,13 +15,13 @@
 
 						<br />
 						<p class="title">Add Quote</p>
-						<p><?=$message?>
+						<p><?=$message?></p>
 						<form method="post" action="add.php">
 							<table id="form">
 								<tbody>
 									<tr>
 										<td>Quote:</td>
-										<td><input type="textarea" name="quote" /></td>
+										<td><textarea name="quote" cols="60" rows="10"></textarea></td>
 									</tr>
 									<tr>
 										<td>What is <?=$captcha1?> + <?=$captcha2?> * <?=$captcha3?>?</td>

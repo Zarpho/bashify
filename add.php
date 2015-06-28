@@ -24,21 +24,25 @@ $pagetitle = "Add quote";
 
 include("html/header.php");
 
-if ((isset($_POST[quote]) and isset($_POST[captcha])) and $_POST[captcha] == ($_POST[captcha1] + $_POST[captcha2] + $_POST[captcha3]))
+if (strlen($_POST[quote]) > 0 and $_POST[captcha] == $_POST[captcha1] + ($_POST[captcha2] * $_POST[captcha3]))
 {
-	$query = mysqli_query($mysqli, "");
+	date_default_timezone_set("EST");
 	
-	include("html/success.php");
+	$query = mysqli_query($mysqli, "INSERT INTO quotes (quote, date, upvotes, downvotes, approved, ip) VALUES ('" . htmlspecialchars($_POST[quote]) . "', '" . date("m.d.y h:i A e") . "', 0, 0, 0, '" . $_SERVER[REMOTE_ADDR] . "')");
+	
+	echo "Success!";
+	
+	//include("html/success.php");
 }
 else
 {
-	if (isset($_POST[quote]) and isset($_POST[captcha]))
+	if (strlen($_POST[quote]) > 0 and isset($_POST[captcha]))
 	{
 		$message = "You provided an incorrect answer to the anti-spam question. Please try again.";
 	} 
-	else if (isset($_POST[quote]) xor isset($_POST[captcha]))
+	else if (strlen($_POST[quote]) > 0 xor isset($_POST[captcha]))
 	{
-		$message = "Please fill out all of the fields";
+		$message = "Please fill out all of the fields.";
 	}
 	else
 	{
