@@ -28,7 +28,7 @@ if (isset($_GET[id]))
 }
 else
 {
-	$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id ASC");
+	$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id DESC");
 	$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
 	$id          = "all";
 }

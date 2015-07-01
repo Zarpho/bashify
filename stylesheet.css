@@ -20,14 +20,30 @@ body, div, p, table, tbody, th, tr, td, ol, ul, li, img
 	font-size: 10pt;
 }
 
+#form
+{
+	margin: auto;
+	border-spacing: 16px;
+}
+
 .centered
 {
 	text-align: center;
 }
 
+.green
+{
+	color: #008000;
+}
+
 .monospace
 {
 	font-family: Consolas, monospace;
+}
+
+.red
+{
+	color: #FF0000;
 }
 
 .right

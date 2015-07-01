@@ -22,10 +22,10 @@ mysqli_select_db($mysqli, $database);
 
 $pagetitle = "Home";
 
-$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id ASC LIMIT 50");
-$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
-
 include("html/header.php");
+
+$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id DESC LIMIT 50");
+$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
 
 foreach ($quotesarray as $quotearray)
 {

@@ -28,7 +28,7 @@
 										<td><input type="text" name="captcha" /></td>
 									</tr>
 									<tr>
-										<td class="centered"><input type="submit" value="Add quote" /></td>
+										<td class="centered" colspan="2"><input type="submit" value="Add quote" /></td>
 									</tr>
 								</tbody>
 							</table>

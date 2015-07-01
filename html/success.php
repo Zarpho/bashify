@@ -1,0 +1,19 @@
+<?php
+
+/* :: Bashify ::
+ *
+ * FILENAME:    html/success.php
+ * AUTHOR(S):   Joey Miller ("Zarpho")
+ * DESCRIPTION: Containss HTML data for when a quote is successfully added.
+ */
+
+/* This file references the $newid variable from add.php. This variable represents the ID of the
+ * quote that was successfully added.
+ */
+
+?>
+
+						<br />
+						<p class="title">Success!</p>
+						<br />
+						<p>Quote <a href="view.php?id=<?=$newid?>">#<?=$newid?></a> has been successfully added to the database and is awaiting approval.</p>

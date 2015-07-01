@@ -28,11 +28,15 @@ if (strlen($_POST[quote]) > 0 and $_POST[captcha] == $_POST[captcha1] + ($_POST[
 {
 	date_default_timezone_set("EST");
 	
-	$query = mysqli_query($mysqli, "INSERT INTO quotes (quote, date, upvotes, downvotes, approved, ip) VALUES ('" . htmlspecialchars($_POST[quote]) . "', '" . date("m.d.y h:i A e") . "', 0, 0, 0, '" . $_SERVER[REMOTE_ADDR] . "')");
+	$newquote = nl2br(htmlspecialchars($_POST[quote])); // Formats quote so it's HTML-friendly
+	$newdate  = date("m.d.y h:i A e");                  // Formats date so it's human-readable
+	$newip    = $_SERVER[REMOTE_ADDR];                  // IP of the user who's posting the quote
 	
-	echo "Success!";
+	$query = mysqli_query($mysqli, "INSERT INTO quotes (quote, date, upvotes, downvotes, approved, ip) VALUES ('" . $newquote . "', '" . $newdate . "', 0, 0, 0, '" . $newip . "')");
+	$query = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT id FROM quotes WHERE date = '" . $newdate . "'"));
+	$newid = $query[id];
 	
-	//include("html/success.php");
+	include("html/success.php");
 }
 else
 {
