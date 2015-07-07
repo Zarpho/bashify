@@ -11,8 +11,22 @@
  * for documentation on these variables.
  */
 
+/* $color - determines based on rating what the color of the rating should be. */
+if ($quote->rating > 0)
+{
+	$color = "green";
+}
+else if ($quote->rating == 0)
+{
+	$color = "grey";
+}
+else
+{
+	$color = "red";
+}
+
 ?>
 
-						<p class="monospace">#<?=$quote->id?> - <?=$quote->date?> <span class="upvotes"><?=$quote->upvotes?></span> + / - <span class="downvotes"><?=$quote->downvotes?></span></p>
+						<p class="monospace"><a href="view.php?id=<?=$quote->id?>">#<?=$quote->id?></a> ~ <?=$quote->date?> ~ +(<span class="<?=$color?>"><?=$quote->rating?></span>)-</p>
 						<p class="monospace"><?=$quote->quote;?></p>
 						<br />

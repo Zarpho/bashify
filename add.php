@@ -10,15 +10,12 @@
 require("etc/index.php");
 require("lib/index.php");
 
-$db     = new Database($hostname, $username, $password, $database);
-$mysqli = $db->connect();
+$db = new mysqli($hostname, $username, $password, $database);
 
-if (!$mysqli)
+if ($db->connect_error)
 {
-	die("Could not connect to MySQL database. Please make sure etc/db.php is configured correctly. ~ " . mysqli_error());
+	die("Could not connect to MySQL database. Please make sure etc/db.php is configured correctly. ~ " . $db->connect_error);
 }
-
-mysqli_select_db($mysqli, $database);
 
 $pagetitle = "Add quote";
 
@@ -32,9 +29,10 @@ if (strlen($_POST[quote]) > 0 and $_POST[captcha] == $_POST[captcha1] + ($_POST[
 	$newdate  = date("m.d.y h:i A e");                  // Formats date so it's human-readable
 	$newip    = $_SERVER[REMOTE_ADDR];                  // IP of the user who's posting the quote
 	
-	$query = mysqli_query($mysqli, "INSERT INTO quotes (quote, date, upvotes, downvotes, approved, ip) VALUES ('" . $newquote . "', '" . $newdate . "', 0, 0, 0, '" . $newip . "')");
-	$query = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT id FROM quotes WHERE date = '" . $newdate . "'"));
-	$newid = $query[id];
+	$db->query("INSERT INTO quotes (quote, date, rating, approved, ip) VALUES ('" . $newquote . "', '" . $newdate . "', 0, 0, '" . $newip . "')");
+	$query = $db->query("SELECT id FROM quotes WHERE date = '" . $newdate . "'");
+	$newid = $query->fetch_assoc();
+	$id    = $newid[id];
 	
 	include("html/success.php");
 }

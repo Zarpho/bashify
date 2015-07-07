@@ -10,26 +10,23 @@
 require("etc/index.php");
 require("lib/index.php");
 
-$db     = new Database($hostname, $username, $password, $database);
-$mysqli = $db->connect();
+$db = new mysqli($hostname, $username, $password, $database);
 
-if (!$mysqli)
+if ($db->connect_error)
 {
-	die("Could not connect to MySQL database. Please make sure etc/db.php is configured correctly. ~ " . mysqli_error());
+	die("Could not connect to MySQL database. Please make sure etc/db.php is configured correctly. ~ " . $db->connect_error);
 }
-
-mysqli_select_db($mysqli, $database);
 
 if (isset($_GET[id]))
 {
-	$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE id = " . $_GET[id]);
-	$quotesarray = mysqli_fetch_assoc($query);
+	$query       = $db->query("SELECT * FROM quotes WHERE id = " . $_GET[id]);
+	$quotesarray = $query->fetch_assoc();
 	$id          = "#" . $_GET[id];
 }
 else
 {
-	$query       = mysqli_query($mysqli, "SELECT * FROM quotes WHERE approved = 1 ORDER BY id DESC");
-	$quotesarray = mysqli_fetch_all($query, MYSQL_ASSOC);
+	$query       = $db->query("SELECT * FROM quotes WHERE approved = 1 ORDER BY id DESC");
+	$quotesarray = $query->fetch_all(MYSQL_ASSOC);
 	$id          = "all";
 }
 

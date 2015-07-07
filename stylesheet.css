@@ -36,6 +36,11 @@ body, div, p, table, tbody, th, tr, td, ol, ul, li, img
 	color: #008000;
 }
 
+.grey
+{
+	color: #808080;
+}
+
 .monospace
 {
 	font-family: Consolas, monospace;

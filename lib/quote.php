@@ -9,22 +9,20 @@
 
 class Quote
 {
-	public $id;
-	public $quote;
-	public $date;
-	public $upvotes;
-	public $downvotes;
-	public $approved;
+	public $id;       // The ID # of the quote
+	public $quote;    // The quote
+	public $date;     // The date the quote was posted
+	public $rating;   // The rating of the quote
+	public $approved; // Whether or not the quote is approved
 	
 	/* Constructor method */
 	function __construct($quotedata)
 	{
-		$this->id        = $quotedata[id];
-		$this->quote     = $quotedata[quote];
-		$this->date      = $quotedata[date];
-		$this->upvotes   = $quotedata[upvotes];
-		$this->downvotes = $quotedata[downvotes];
-		$this->approved  = $quotedata[approved];
+		$this->id       = $quotedata[id];
+		$this->quote    = $quotedata[quote];
+		$this->date     = $quotedata[date];
+		$this->rating   = $quotedata[rating];
+		$this->approved = $quotedata[approved];
 	}
 }
 
