@@ -18,9 +18,26 @@ if ($db->connect_error)
 	die("Could not connect to MySQL database. Please make sure etc/db.php is configured correctly. ~ " . $db->connect_error);
 }
 
+/*if (isset($_SESSION[userid]))
+{
+	$query       = $db->query("SELECT * FROM users WHERE user = '" . $_SESSION[userid] . "'");
+	$currentuser = new User($query->fetch_assoc());
+}*/
+
 if (isset($_GET[approve]) or isset($_GET[delete]))
 {
 	header("Refresh: 5; url=admin.php");
+	
+	$id = isset($_GET[approve]) ? $_GET[approve] : $_GET[delete];
+	
+	$stmt = $db->prepare("SELECT * FROM quotes WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	
+	$query = $stmt->get_result();
+	$quote = new Quote($query->fetch_assoc());
+	
+	$stmt->close();
 }
 
 $pagetitle = "Admin";
@@ -29,17 +46,15 @@ include("html/header.php");
 
 if (isset($_GET[approve]))
 {
-	$id    = $_GET[approve];
-	$query = $db->query("UPDATE quotes SET approved = 1 WHERE id = " . $id);
+	$quote->approve();
 	
-	echo("#" . $id . " has been approved.");
+	echo("#" . $quote->id . " has been approved.");
 }
-if (isset($_GET[delete]))
+else if (isset($_GET[delete]))
 {
-	$id    = $_GET[delete];
-	$query = $db->query("DELETE FROM quotes WHERE id = " . $id);
+	$quote->delete();
 	
-	echo("#" . $id . " has been deleted.");
+	echo("#" . $quote->id . " has been deleted.");
 }
 else
 {

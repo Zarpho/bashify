@@ -19,9 +19,26 @@ if ($db->connect_error)
 
 if (isset($_GET[id]))
 {
-	$query       = $db->query("SELECT * FROM quotes WHERE id = " . $_GET[id]);
-	$quotesarray = $query->fetch_assoc();
-	$id          = "#" . $_GET[id];
+	$id = $_GET[id];
+	
+	if (is_numeric($id) and $id > 0)
+	{
+		$stmt = $db->prepare("SELECT * FROM quotes WHERE id = ?");
+		$stmt->bind_param("s", $id);
+		$stmt->execute();
+		
+		$query       = $stmt->get_result();
+		$quotesarray = $query->fetch_assoc();
+		
+		$stmt->close();
+		
+		$id = "#" . $id;
+	}
+	else
+	{
+		$invalid = TRUE;
+		$id      = "\"" . $id . "\"";
+	}
 }
 else
 {
@@ -42,6 +59,11 @@ if ($id == "all")
 		
 		include("html/quote.php");
 	}
+}
+else if ($invalid == TRUE)
+{
+	echo "\n";
+	echo "						<p>" . $id . " is an invalid quote ID.</p>";
 }
 else if ($quotesarray[id] == NULL)
 {

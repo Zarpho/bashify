@@ -29,10 +29,20 @@ if (strlen($_POST[quote]) > 0 and $_POST[captcha] == $_POST[captcha1] + ($_POST[
 	$newdate  = date("m.d.y h:i A e");                  // Formats date so it's human-readable
 	$newip    = $_SERVER[REMOTE_ADDR];                  // IP of the user who's posting the quote
 	
-	$db->query("INSERT INTO quotes (quote, date, rating, approved, ip) VALUES ('" . $newquote . "', '" . $newdate . "', 0, 0, '" . $newip . "')");
-	$query = $db->query("SELECT id FROM quotes WHERE date = '" . $newdate . "'");
+	$stmt1 = $db->prepare("INSERT INTO quotes (quote, date, rating, approved, ip) VALUES (?, ?, 0, 0, ?)");
+	$stmt1->bind_param("sss", $newquote, $newdate, $newip);
+	$stmt1->execute();
+	
+	$stmt2 = $db->prepare("SELECT id FROM quotes WHERE date = ?");
+	$stmt2->bind_param("s", $newdate);
+	$stmt2->execute();
+	
+	$query = $stmt2->get_result();
 	$newid = $query->fetch_assoc();
 	$id    = $newid[id];
+	
+	$stmt1->close();
+	$stmt2->close();
 	
 	include("html/success.php");
 }

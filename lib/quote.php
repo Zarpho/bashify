@@ -24,6 +24,32 @@ class Quote
 		$this->rating   = $quotedata[rating];
 		$this->approved = $quotedata[approved];
 	}
+	
+	/* Voting functions - changes rating of quote */
+	function upvote()
+	{
+		global $db;
+	}
+	
+	function downvote()
+	{
+		global $db;
+	}
+	
+	/* Admin panel functions */
+	function approve()
+	{
+		global $db;
+		
+		return $db->query("UPDATE quotes SET approved = 1 WHERE id = " . $this->id) ? true : false;
+	}
+	
+	function delete()
+	{
+		global $db;
+		
+		return $db->query("DELETE FROM quotes WHERE id = " . $this->id) ? true : false;
+	}
 }
 
 ?>
